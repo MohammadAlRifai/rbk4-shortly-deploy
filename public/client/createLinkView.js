@@ -4,11 +4,11 @@ Shortly.createLinkView = Backbone.View.extend({
   template: Templates.create,
 
   events: {
-    'submit': 'shortenUrl'
+    submit: 'shortenUrl'
   },
 
   render: function() {
-    this.$el.html( this.template() );
+    this.$el.html(this.template());
     return this;
   },
 
@@ -26,12 +26,18 @@ Shortly.createLinkView = Backbone.View.extend({
   success: function(link) {
     this.stopSpinner();
     var view = new Shortly.LinkView({ model: link });
-    this.$el.find('.message').append(view.render().$el.hide().fadeIn());
+    this.$el.find('.message').append(
+      view
+        .render()
+        .$el.hide()
+        .fadeIn()
+    );
   },
 
   failure: function(model, res) {
     this.stopSpinner();
-    this.$el.find('.message')
+    this.$el
+      .find('.message')
       .html('Please enter a valid URL')
       .addClass('error');
     return this;
@@ -40,7 +46,8 @@ Shortly.createLinkView = Backbone.View.extend({
   startSpinner: function() {
     this.$el.find('img').show();
     this.$el.find('form input[type=submit]').attr('disabled', 'true');
-    this.$el.find('.message')
+    this.$el
+      .find('.message')
       .html('')
       .removeClass('error');
   },
@@ -48,7 +55,8 @@ Shortly.createLinkView = Backbone.View.extend({
   stopSpinner: function() {
     this.$el.find('img').fadeOut('fast');
     this.$el.find('form input[type=submit]').attr('disabled', null);
-    this.$el.find('.message')
+    this.$el
+      .find('.message')
       .html('')
       .removeClass('error');
   }

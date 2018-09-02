@@ -1,17 +1,15 @@
-
 module.exports = function(grunt) {
-
   grunt.initConfig({
-    pkg: grunt.file.readJSON('package.json'), 
-      concat: {
-    options: {
-      separator: ';',
+    pkg: grunt.file.readJSON('package.json'),
+    concat: {
+      options: {
+        separator: ';'
+      },
+      dist: {
+        src: 'public/**/*.js',
+        dest: 'public/dist/build.js'
+      }
     },
-    dist: {
-      src: 'public/**/*.js',
-      dest: 'public/dist/build.js'
-    }
-  },
 
     mochaTest: {
       test: {
@@ -28,35 +26,26 @@ module.exports = function(grunt) {
       }
     },
 
-    uglify:{
-      
+    uglify: {
       dist: {
-      src: ['public/dist/build.js'],
-      dest: 'public/dist/build.js'
-    }
+        src: ['public/dist/build.js'],
+        dest: 'public/dist/build.js'
+      }
     },
 
     eslint: {
-      // target: 
+      // target:
       //  ['build.js']
       // }
-        // Add list of files to lint here
-
+      // Add list of files to lint here
     },
 
-    cssmin: {
-    },
+    cssmin: {},
 
     watch: {
       scripts: {
-        files: [
-          'public/client/**/*.js',
-          'public/lib/**/*.js',
-        ],
-        tasks: [
-          'concat',
-          'uglify'
-        ]
+        files: ['public/client/**/*.js', 'public/lib/**/*.js'],
+        tasks: ['concat', 'uglify']
       },
       css: {
         files: 'public/*.css',
@@ -65,9 +54,8 @@ module.exports = function(grunt) {
     },
 
     shell: {
-      prodServer: {
-      }
-    },
+      prodServer: {}
+    }
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -79,32 +67,27 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-nodemon');
 
-  grunt.registerTask('server-dev', function (target) {
-    grunt.task.run([ 'nodemon', 'watch' ]);
+  grunt.registerTask('server-dev', function(target) {
+    grunt.task.run(['nodemon', 'watch']);
   });
 
   ////////////////////////////////////////////////////
   // Main grunt tasks
   ////////////////////////////////////////////////////
 
-  grunt.registerTask('test', [
-    'mochaTest'
-  ]);
+  grunt.registerTask('test', ['mochaTest']);
 
-  grunt.registerTask('build', ['concat'
-  ]);
+  grunt.registerTask('build', ['concat']);
 
   grunt.registerTask('upload', function(n) {
     if (grunt.option('prod')) {
       // add your production server task here
     } else {
-      grunt.task.run([ 'server-dev' ]);
+      grunt.task.run(['server-dev']);
     }
   });
 
   grunt.registerTask('deploy', [
     // add your deploy tasks here
   ]);
-
-
 };

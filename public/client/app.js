@@ -7,7 +7,7 @@ window.Shortly = Backbone.View.extend({
   },
 
   initialize: function() {
-    console.log( 'Shortly is running' );
+    console.log('Shortly is running');
     $('body').append(this.render().el);
 
     this.router = new Shortly.Router({ el: this.$el.find('#container') });
@@ -17,7 +17,7 @@ window.Shortly = Backbone.View.extend({
   },
 
   render: function() {
-    this.$el.html( this.template() );
+    this.$el.html(this.template());
     return this;
   },
 
@@ -32,7 +32,8 @@ window.Shortly = Backbone.View.extend({
   },
 
   updateNav: function(routeName) {
-    this.$el.find('.navigation li a')
+    this.$el
+      .find('.navigation li a')
       .removeClass('selected')
       .filter('.' + routeName)
       .addClass('selected');
